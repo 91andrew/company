@@ -2,9 +2,6 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdbool.h>
-#define MAX 90
-
-
 
  struct database{
 	int emp[20];
@@ -14,24 +11,67 @@
 
 int main(){
 	
-		char c[30];
-	int i =0,k=0;
+char c[30];
+int i =0,k=0,one,two,j, a;
+
+for(i=0,k=1; (c[i]=getchar())!=';';i++){
+	if(c[i]>=48 && c[i]<=57)
+	    {
+		if(c[i-6]=='e')company.emp[k]= c[i]-48;
+		if(c[i-6]=='r')company.man[k]= c[i]-48;
+		}
+	else if(c[i]=='}')k++;
 	
-	for(i=0,k=0; (c[i]=getchar())!=';';i++){
-		if(c[i]>=48 && c[i]<=57){
-			if(c[i-6]=='e')company.emp[k]= c[i]-48;
-			if(c[i-6]=='r')company.man[k]= c[i]-48;
-			
-		}
-		
-		else if(c[i]=='}' ){
-			printf("%d ", company.emp[k]);
-			printf("%d ", company.man[k]);
-			k++;
-		}
-		
-		if(c[i]=='m' )i=0;
-		}
+	
+	if(c[i]=='m' )i=0;
+	
+	}
+	k--;
+again:
+    printf("\ninsert id of the first employee:"); 
+    scanf("%d",&one); 
+
+
+if(one<1 && one>k){                                  //checks if employee id is correct
+	printf("employee not found.\n");
+	goto again;
+}
+again2:
+    printf("\ninsert id of the second employee:");
+    scanf("%d",&two);
+
+if(two <1 && two >k) {                               //checks if employee id is correct
+	printf("employee not found.\n");
+	goto again2;
+}
+else if(two==one){
+	printf("cant insert same employee id.\n");
+	goto again2;
+}
+
+for(i=0;i<k;i++)if(company.emp[i]== one) break;
+
+for( j=0;i<k;j++) if(company.emp[j]==two) break;
+
+for(a=0; i>1 && j>1; ){
+	
+
+	if(company.man[i] == company.man[j]) {
+		if(company.man[i]==0 || company.man[j]==0);
+		else {
+		    printf("common manager id:%d\n",company.man[i]);
+		    a++;
+		    }
+	    i=company.man[i];
+	    j=company.man[j];
+	
+	}
+    else if(company.man[i]> company.man[j]) i=company.man[i];
+    else j=company.man[j];
+}
+
+
+if(a<=0)printf("no common manager found");
 
 	
 return 0;
